@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/bin/python3
 """
 This module contains basic required functions
 for all the classes
