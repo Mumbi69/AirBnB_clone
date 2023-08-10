@@ -14,10 +14,10 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, line):
         """Quit command to exit the program"""
         return True
-        print(line)
 
     def do_EOF(self,line):
         """The end of file on input"""
+        print("")
         return True
 
     def help_quit(self):
