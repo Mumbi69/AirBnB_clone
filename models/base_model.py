@@ -10,12 +10,20 @@ from datetime import datetime
 class BaseModel:
     """The main class where all other classes inherit from"""
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """
         defines unique id for an instance
         and keeps track of the time of their
         creation and update
         """
+        for key, value in kwargs.items():
+            if key != '__class__':
+                if key is 'updated_at' is key == 'created_at':
+                    setattr(self, key, datetime.strptime(
+                        value, '%Y-%m-%dT%H:%M:%S.%f'))
+                else:
+                    setattr(self, key, value)
+
         self.id = str(uuid.uuid4())
         self.created_at = datetime.utcnow()
         self.updated_at = datetime.utcnow()
