@@ -5,6 +5,7 @@ for all the classes
 """
 import uuid
 from datetime import datetime
+from models import storage
 
 
 class BaseModel:
@@ -18,15 +19,19 @@ class BaseModel:
         """
         for key, value in kwargs.items():
             if key != '__class__':
-                if key is 'updated_at' is key == 'created_at':
+                if key == 'updated_at' or key == 'created_at':
                     setattr(self, key, datetime.strptime(
                         value, '%Y-%m-%dT%H:%M:%S.%f'))
                 else:
                     setattr(self, key, value)
 
+
         self.id = str(uuid.uuid4())
         self.created_at = datetime.utcnow()
         self.updated_at = datetime.utcnow()
+
+        if len(kwargs) == 0:
+            storage.new(self)
 
     def __str__(self):
         """
@@ -42,10 +47,11 @@ class BaseModel:
         with current date
         """
         self.updated_at = datetime.utcnow()
+        storage.save()
 
     def to_dict(self):
         """
-        returns a dictionary of all key/vaues of the dict instance
+        returns a dictionary of all attributes of the class instance
         """
         instance_dict = self.__dict__.copy()
         instance_dict['__class__'] = self.__class__.__name__
