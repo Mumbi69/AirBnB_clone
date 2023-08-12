@@ -11,10 +11,11 @@ from models.amenity import Amenity
 from models.review import Review
 from shlex import split
 
+
 class HBNBCommand(cmd.Cmd):
     """Representation of the class Cmd from the module cmd."""
-    prompt = "[Air] "
-    __classes={
+    prompt = "(hbnb) "
+    __classes = {
         "User"
         "State"
         "City"
