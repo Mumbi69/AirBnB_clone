@@ -5,8 +5,7 @@ for all the classes
 """
 import uuid
 from datetime import datetime
-from models import storage
-
+import models
 
 class BaseModel:
     """The main class where all other classes inherit from"""
