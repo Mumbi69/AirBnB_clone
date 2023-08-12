@@ -5,7 +5,7 @@ for all the classes
 """
 import uuid
 from datetime import datetime
-import models
+
 
 class BaseModel:
     """The main class where all other classes inherit from"""
@@ -24,12 +24,14 @@ class BaseModel:
                 else:
                     setattr(self, key, value)
 
-
+        from models import storage
         self.id = str(uuid.uuid4())
         self.created_at = datetime.utcnow()
         self.updated_at = datetime.utcnow()
 
-        if len(kwargs) == 0:
+        if len(args) == 0:
+            storage.new(self)
+        else:
             storage.new(self)
 
     def __str__(self):
@@ -46,6 +48,7 @@ class BaseModel:
         with current date
         """
         self.updated_at = datetime.utcnow()
+        from models import storage
         storage.save()
 
     def to_dict(self):
