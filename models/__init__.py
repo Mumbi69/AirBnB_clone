@@ -1,3 +1,6 @@
+"""
+instanciates the filestorage class and reloads it
+"""
 from models.engine.file_storage import FileStorage
 
 storage = FileStorage()
