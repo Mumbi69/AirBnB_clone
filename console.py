@@ -16,7 +16,10 @@ from shlex import split
 class HBNBCommand(cmd.Cmd):
     """Representation of the class Cmd from the module cmd."""
     prompt = "(hbnb) "
-    __classes = {"BaseModel": BaseModel, "User": User}
+    __classes = {
+            "BaseModel": BaseModel, "User": User, "Place": Place,
+            "State": State, "City": City,
+            "Amenity": Amenity, "Review": Review}
 
     def emptyline(self):
         """Empty line that executes nothing"""
