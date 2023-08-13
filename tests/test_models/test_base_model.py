@@ -5,6 +5,7 @@ import unittest
 from models.base_model import BaseModel
 from datetime import datetime
 import models
+from time import sleep
 import sys
 
 
@@ -46,6 +47,33 @@ class TestBaseModel(unittest.TestCase):
         self.assertIn("'id': '2345'", bmstr)
         self.assertIn("'created_at': " + dt_repr, bmstr)
         self.assertIn("'updated_at': " + dt_repr, bmstr)
+
+    def test_two_models_different_created_at(self):
+        bm1 = BaseModel()
+        sleep(0.05)
+        bm2 = BaseModel()
+        self.assertLess(bm1.created_at, bm2.created_at)
+
+class TestBaseModel_save(unittest.TestCase):
+    """Representation of testing save method of the BaseModel"""
+
+    @classmethod
+    def setUp(self):
+        try:
+            os.rename("file.json", "tmp")
+        except IOError:
+            pass
+
+    @classmethod
+    def tearDown(self):
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("tmp", "file.json")
+        except IOError:
+            pass
 
 
 if __name__ == "__main__":
