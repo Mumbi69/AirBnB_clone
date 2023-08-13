@@ -2,6 +2,7 @@
 """Defines the program that contains the entry point of the CLI"""
 
 import cmd
+import json
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
