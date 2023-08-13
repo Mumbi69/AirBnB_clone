@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 instanciates the filestorage class and reloads it
 """
