@@ -187,7 +187,7 @@ class HBNBCommand(cmd.Cmd):
             setattr(storage.all()[key], attribute_name, casted_value)
             storage.all()[key].save()
         else:
-            #print("** attribute doesn't exist **")
+            """print("** attribute doesn't exist **")"""
             setattr(storage.all()[key], attribute_name, str(attribute_value))
             storage.all()[key].save()
 
