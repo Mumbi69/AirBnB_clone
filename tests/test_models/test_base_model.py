@@ -54,6 +54,10 @@ class TestBaseModel(unittest.TestCase):
         bm2 = BaseModel()
         self.assertLess(bm1.created_at, bm2.created_at)
 
+    def test_instantiation_with_None_kwargs(self):
+        with self.assertRaises(TypeError):
+            BaseModel(id=None, created_at=None, updated_at=None)
+
 
 class TestBaseModel_save(unittest.TestCase):
     """Representation of testing save method of the BaseModel"""
