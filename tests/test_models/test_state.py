@@ -27,6 +27,36 @@ class TestState_instantiation(unittest.TestCase):
         st2 = State()
         self.assertNotEqual(st1.id, st2.id)
 
+    def test_new_instance_stored_in_objects(self):
+        self.assertIn(State(), models.storage.all().values())
+
+    def test_name_is_public_class_attribute(self):
+        st = State()
+        self.assertEqual(str, type(State.name))
+        self.assertIn("name", dir(st))
+        self.assertNotIn("name", st.__dict__)
+
+
+class TestState_save(unittest.TestCase):
+    """Represents testing save method of the State class."""
+
+    @classmethod
+    def setUp(self):
+        try:
+            os.rename("file.json", "tmp")
+        except IOError:
+            pass
+
+    def tearDown(self):
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("tmp", "file.json")
+        except IOError:
+            pass
+
 
 if __name__ == "__main__":
     unittest.main()
