@@ -16,17 +16,24 @@ from pathlib import Path
 
 
 class FileStorage:
+    """serializes instances to a JSON file and deserializes
+       JSON file to instances
+    """
+
     __file_path = "file.json"
     __objects = {}
 
     def all(FileStorage):
+        """function returns the dictionary __objects"""
         return FileStorage.__objects
 
     def new(FileStorage, obj):
+        """sets in __objects the obj with key <obj class name>.id"""
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
         FileStorage.__objects[key] = obj
 
     def save(FileStorage):
+        """serializes __objects to the JSON file (path: __file_path)"""
         obj_data = {}
 
         for key, obj in FileStorage.__objects.items():
@@ -36,6 +43,7 @@ class FileStorage:
             json.dump(obj_data, file)
 
     def reload(FileStorage):
+        """deserializes the JSON file to __objects"""
         try:
             with open(FileStorage.__file_path, 'r') as file:
                 obj_data = json.load(file)
