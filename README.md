@@ -14,9 +14,13 @@ project, for example:
 objects.
 
 * To start the command interpreter:
-    > * Navigate to the project directory: vagrant@ubuntu-focal:
-        ~/Mumbi/AirBnB_clone$
-
+    - Clone the repository in any desired location on your machine
+    - Be sure to have python already installed
+    - Navigate to the root directory of the project
+    - On your terminal inside the root dir execute the console.py file
+      - by typing ./console.py
+    - when the console opens, type help to get a list of all the Objects
+    - you can manipulate and how you can work them out.
 
 * Using the CLI:
     > * Once open, you will see an interface where you can type
