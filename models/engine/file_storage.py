@@ -12,7 +12,6 @@ from models.city import City
 from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
-from pathlib import Path
 
 
 class FileStorage:
@@ -23,35 +22,30 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
-    def all(FileStorage):
+    def all(self):
         """function returns the dictionary __objects"""
         return FileStorage.__objects
 
-    def new(FileStorage, obj):
+    def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id"""
-        key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        FileStorage.__objects[key] = obj
+        objname = obj.__class__.__name__
+        FileStorage.__objects["{}.{}".format(objname, obj.id)] = obj
 
-    def save(FileStorage):
+    def save(self):
         """serializes __objects to the JSON file (path: __file_path)"""
-        obj_data = {}
+        o_dict = FileStorage.__objects
+        objdict = {obj: o_dict[obj].to_dict() for obj in o_dict.keys()}
+        with open(FileStorage.__file_path, "w") as file:
+            json.dump(objdict, file)
 
-        for key, obj in FileStorage.__objects.items():
-            obj_data[key] = obj.to_dict()
-
-        with open(FileStorage.__file_path, 'w') as file:
-            json.dump(obj_data, file)
-
-    def reload(FileStorage):
+    def reload(self):
         """deserializes the JSON file to __objects"""
         try:
-            with open(FileStorage.__file_path, 'r') as file:
+            with open(FileStorage.__file_path) as file:
                 obj_data = json.load(file)
-                for key, value in obj_data.items():
-                    class_name = value['__class__']
-                    obj = eval(class_name + '(**value)')
-                    FileStorage.__objects[key] = obj
+                for v in obj_data.values():
+                    class_name = v["__class__"]
+                    del v["__class__"]
+                    self.new(eval(class_name)(**v))
         except FileNotFoundError:
-            """
-            ignore :)
-            """
+            return
