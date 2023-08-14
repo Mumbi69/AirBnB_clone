@@ -22,6 +22,9 @@ class TestAmenity_instantiation(unittest.TestCase):
     def test_updated_at_is_public_datetime(self):
         self.assertEqual(datetime, type(Amenity().updated_at))
 
+    def test_new_instance_stored_in_objects(self):
+        self.assertIn(Amenity(), models.storage.all().values())
+
     def test_two_amenities_unique_ids(self):
         am1 = Amenity()
         am2 = Amenity()
@@ -30,6 +33,33 @@ class TestAmenity_instantiation(unittest.TestCase):
     def test_args_unused(self):
         am = Amenity(None)
         self.assertNotIn(None, am.__dict__.values())
+
+    def test_name_is_public_class_attribute(self):
+        am = Amenity()
+        self.assertEqual(str, type(Amenity.name))
+        self.assertIn("name", dir(Amenity()))
+        self.assertNotIn("name", am.__dict__)
+
+
+class TestAmenity_save(unittest.TestCase):
+    """Representation of testing save method of the Amenity class."""
+
+    @classmethod
+    def setUp(self):
+        try:
+            os.rename("file.json", "tmp")
+        except IOError:
+            pass
+
+    def tearDown(self):
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("tmp", "file.json")
+        except IOError:
+            pass
 
 
 if __name__ == "__main__":
