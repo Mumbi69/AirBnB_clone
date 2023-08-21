@@ -47,19 +47,21 @@ button:hover{
     font-weight: 400;
     font-size: 14px;
 }
-
+.amenities .popover {
+    left: -34px;
+}
 .popover{
     position: absolute;
-    width: 100%;
+    width: 95%;
     top: 80%;
     display: none;
     list-style: none;
     padding-bottom: 20px;
+    left: -30px;
 }
 
 .popover li{
     padding: 10px 20px;
-    border-bottom: 1px solid #DDDDDD;
     font-size: 14px;
     font-weight: 400;
     
