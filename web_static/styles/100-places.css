@@ -149,7 +149,7 @@ article .price_by_night{
     width: 100%;
     display: flex;
     flex-direction: column;
-}
+    }
 
 .reviews h2{
     font-size: 16px;
@@ -173,4 +173,15 @@ article .price_by_night{
     position: relative;
     height: 32px;
     padding-top: 0px;
+    }
+
+.reviews p,
+.reviews h3{
+    text-align: left;
+    padding-top: 0;
+    margin-bottom: 5px;
+}
+
+.reviews p{
+    margin-top: 0;
 }
